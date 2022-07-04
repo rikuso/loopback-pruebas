@@ -1,5 +1,6 @@
 import {Entity, model, property} from '@loopback/repository';
 
+
 @model()
 export class TypeDocument extends Entity {
   @property({

@@ -1,6 +1,25 @@
-import {Entity, model, property} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {AppUser} from './app-user.model';
+import {TypeDocument} from './type-document.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_user_document_id: {
+        name: 'fk_user_document_id',
+        entity: 'AppUser',
+        entityKey: 'id',
+        foreignKey: 'appUserId',
+      },
+      fk_type_user_id: {
+        name: 'fk_type_user_id',
+        entity: 'TypeDocument',
+        entityKey: 'id',
+        foreignKey: 'typeDocumentId',
+      },
+    },
+  },
+})
 export class UserDocument extends Entity {
   @property({
     type: 'number',
@@ -27,6 +46,11 @@ export class UserDocument extends Entity {
   })
   DateExpedition: string;
 
+  @belongsTo(() => TypeDocument)
+  typeDocumentId: number;
+
+  @belongsTo(() => AppUser)
+  appUserId: number;
 
   constructor(data?: Partial<UserDocument>) {
     super(data);

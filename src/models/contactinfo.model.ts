@@ -1,6 +1,25 @@
-import {Entity, model, property} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {AppUser} from './app-user.model';
+import {Country} from './country.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_user_id: {
+        name: 'fk_user_id',
+        entity: 'AppUser',
+        entityKey: 'id',
+        foreignKey: 'appUserId',
+      },
+      fk_country_id: {
+        name: 'fk_country_id',
+        entity: 'Country',
+        entityKey: 'id',
+        foreignKey: 'countryId',
+      },
+    },
+  },
+})
 export class Contactinfo extends Entity {
   @property({
     type: 'number',
@@ -45,6 +64,11 @@ export class Contactinfo extends Entity {
   })
   EmergencyPhone: string;
 
+  @belongsTo(() => Country)
+  countryId: number;
+
+  @belongsTo(() => AppUser)
+  appUserId: number;
 
   constructor(data?: Partial<Contactinfo>) {
     super(data);
