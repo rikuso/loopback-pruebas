@@ -64,11 +64,11 @@ export class AppUser extends Entity {
   emailVerified: string;
 
   @property({
-    type: 'string',
-    required: true,
+    type: 'boolean',
+    required: false,
+    default: false,
   })
-  verificationToken: string;
-
+  verificationToken: boolean;
 
   constructor(data?: Partial<AppUser>) {
     super(data);
